@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="radio" name="male" id="male" :checked="false" value="666">
+        <study></study>
+        <hello-test></hello-test>
+        <h1>{{msg}}--原生h1元素</h1>
+        <school></school>
+        <school />
+        <school />
+        <student></student>
+    </div>
+    <script>
+        console.log(document.querySelector('#male').value)
+        console.dir(document.querySelector('#male'))
+        Vue.config.productionTip = false
+
+        // 创建school组件，school是构造器VueComponent
+        const school = Vue.extend({
+            name: 'School',
+            template: `
+                <div>
+                    <h1>学校名称：{{schoolName}}</h1>
+                    <h1>学校地址：{{address}}</h1>
+                    <button @click="showName">点击显示学校名</button>
+                </div>
+            `,
+            data() {
+                return {
+                    schoolName: '广州大学',
+                    address: '广州'
+                }
+            },
+            methods: {
+                showName() {
+                    alert(this.schoolName)
+                }
+            },
+        })
+        console.log('返回构造函数VueComponent', school, typeof school)
+
+        // 创建student组件 student是构造器VueComponent
+        const student = Vue.extend({
+            name: 'Student',
+            template: `
+                <div>
+                    <h1>学生姓名：{{studentName}}</h1>
+                    <h1>学生年龄：{{age}}</h1>
+                </div>
+            `,
+            data() {
+                return {
+                    studentName: '星爷',
+                    age: 17
+                }
+            }
+        })
+
+        // 创建hello组件 hello是构造器VueComponent
+        const hello = Vue.extend({
+            name: 'Hi',
+            template: `
+                <h1>hello,周星星同学</h1>
+            `,
+        })
+
+        // 创建study组件
+        const study = {
+            name: 'Study',
+            template: `
+            <h1 style="color:red;">good good study, day day up</h1>
+            `
+        }
+
+        // 注册全局组件hello  vc是构造器VueComponent
+        const vc = Vue.component('hello-test', hello)
+        console.log('返回构造函数VueComponent', vc, typeof vc)
+
+        new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello'
+            },
+            // 注册局部组件：school、student和study
+            components: {
+                school,
+                student,
+                study
+            }
+        })
+
+    </script>
+</body>
+
+</html>

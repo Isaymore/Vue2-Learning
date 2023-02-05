@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>人员列表，使用in</h1>
+        <ul>
+            <li v-for="(item, index) in personList" :key="item.id">{{item.name}}-{{item.age}}-{{index}}</li>
+        </ul>
+        <h1>人员列表，使用of</h1>
+        <ul>
+            <li v-for="(item, index) of personList" :key="item.id">{{item.name}}-{{item.age}}-{{index}}</li>
+        </ul>
+        <h1>汽车信息</h1>
+        <ul>
+            <li v-for="(value, k) in car" :key="k">{{k}}-{{value}}</li>
+        </ul>
+        <h1>字符串（用得少）</h1>
+        <ul>
+            <li v-for="(char, index) in str" :key="index">{{char}}-{{index}}</li>
+        </ul>
+        <h2>遍历数字（用得少）</h2>
+        <ul>
+            <li v-for="(number,index) of 5" :key="index">
+                {{index}}-{{number}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    personList: [
+                        { id: '001', name: '张三', age: 16 },
+                        { id: '002', name: '李四', age: 17 },
+                        { id: '003', name: '王五', age: 18 },
+                    ],
+                    car: {
+                        name: 'AE86',
+                        price: '100w',
+                        color: 'white'
+                    },
+                    str: 'test'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

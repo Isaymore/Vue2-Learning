@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        姓： <input type="text" v-model:value="firstName"> <br>
+        名： <input type="text" v-model="lastName"> <br>
+        测试：<input type="text" v-model="x"> <br>
+        姓名：<span>{{fullName}}</span> <br>
+        <!-- 注意：这里不能写成{{fullName.get()}} -->
+        姓名：<span>{{fullName}}</span> <br>
+        姓名：<span>{{fullName}}</span> <br>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    firstName: '周',
+                    lastName: '星星',
+                    x:'hello'
+                }
+            },
+            computed: {
+                fullName: {
+                    get() {
+                        console.log('读取计算属性---fullName，调用执行get函数')
+                        return this.firstName + '-' + this.lastName
+                    },
+                    set(newValue) {
+                        console.log('修改计算属性---fullName所依赖的属性，调用执行set函数', newValue)
+                        const arr = newValue.split('-')
+                        console.log(arr, arr[0], arr[1])
+                        // this.fullName = arr[0] + arr[1]
+                        // this.firstName = arr[0]
+                        this.lastName = arr[1]
+                    }
+                }
+            }
+
+        })
+        // console.log(vm._data === vm.$data)
+    </script>
+</body>
+
+</html>

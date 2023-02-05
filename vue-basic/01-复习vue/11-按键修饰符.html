@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" @keyup.esc="clearInput" @keydown.up="submit" @keydown.shift="showKey">
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                username: '星爷'
+            },
+            methods: {
+                clearInput(e) {
+                    // console.log(e.target, typeof e.target)
+                    // console.log(e.target.value)
+                    e.target.value = ''
+                },
+                submit(e) {
+                    console.log('提交数据：' + e.target.value)
+                },
+                showKey(e) {
+                    console.log(e.key)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

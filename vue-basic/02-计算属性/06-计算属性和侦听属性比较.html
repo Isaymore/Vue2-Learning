@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="demo">
+        {{ fullName }} -- {{ test }}
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#demo',
+            data() {
+                return {
+                    firstName: '周',
+                    lastName: '星驰',
+                    // fullName: '周星驰'  // 计算属性需要注释
+                    test:'哈哈'
+                }
+            },
+            // // 方法一：使用watch侦听属性，代码是命令式且重复的
+            // watch: {
+            //     firstName(newValue, oldValue) {
+            //         console.log('newValue', newValue, typeof newValue)
+            //         console.log('oldValue', oldValue, typeof oldValue)
+            //         // debugger
+            //         this.fullName = newValue + '-' + this.lastName
+            //         console.log('lastName',this.lastName)
+            //         console.log('侦听属性firstName中的fullName', this.fullName)
+            //     },
+            //     lastName(val) {
+            //         console.log('val', val, typeof val)
+            //         this.fullName = this.firstName + '-' + val
+            //         console.log('firstName',this.firstName)
+            //         console.log('侦听属性lastName中的fullName', this.fullName)
+            //     }
+            // },
+            // 方法二：使用computed计算属性，这里推荐使用computed计算属性
+            computed: {
+                fullName: {
+                    get() {
+                        return this.firstName + '-' + this.lastName
+                    },
+                    set(newValue) {
+                        const names = newValue.split('-')
+                        console.log('names', names, typeof names)
+                        this.firstName = names[0]
+                        this.lastName = names[names.length - 1]
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

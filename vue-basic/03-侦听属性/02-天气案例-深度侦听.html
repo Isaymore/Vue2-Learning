@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>今天天气{{weather}}</h1>
+        <button @click="toggleWeacher">切换天气</button>
+        <hr>
+        <h2>a的值: {{numbers.a}}</h2>
+        <h2>d的值: {{numbers.c.d}}</h2>
+        <button  @click="numbers.a++">a点击+1</button>
+        <button  @click="numbers.c.d++">d点击+1</button>
+        <button @click="numbers = {a:4, b: 5, c: {d: 6}}">重新赋值</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    isHot: true,
+                    numbers: {
+                        a: 1,
+                        b: 2,
+                        c: {
+                            d: 3
+                        }
+                    }
+                }
+            },
+            computed: {
+                weather() {
+                    return this.isHot ? '热' : '凉'
+                }
+            },
+            methods: {
+                toggleWeacher() {
+                    this.isHot = !this.isHot
+                },
+                add() {
+                    this.numbers.a++
+                }
+            },
+            watch: {
+                isHot: {
+                    immediate: true,
+                    handler(newVal, oldVal) {
+                        console.log(newVal, oldVal)
+                    }
+                },
+                // 'numbers.a': {
+                //     handler() {
+                //         console.log('a改变')
+                //     }
+                // }
+                numbers: {
+                    deep: true,
+                    handler(newVal, oldVal) {
+                        console.log(newVal, oldVal)
+                    }
+                }
+            }
+
+        })
+        // vm.$watch('isHot', {
+        //     immediate: true,
+        //     handler(newVal, oldVal) {
+        //         console.log(newVal, oldVal)
+        //     }
+        // })
+    </script>
+</body>
+
+</html>

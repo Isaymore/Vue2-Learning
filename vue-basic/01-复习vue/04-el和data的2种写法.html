@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>hello, {{name}}</h1>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'xingye'
+            }
+            // data: function() {
+            //     console.log(this)
+            //     return {
+            //         name: 'xingye'
+            //     }
+            // }
+            // 对象内函数简写 ES6
+            // data() {
+            //     // console.log(this)
+            //     return {
+            //         name: 'xingye'
+            //     }
+            // }
+        })
+        // vm.$mount('#app')
+        // console.log(vm, typeof vm)
+        // console.log(Vue.prototype)
+        // console.log(vm instanceof Vue)
+        // console.log(vm.__proto__, typeof vm.__proto__)
+        // console.log(vm.__proto__ === Vue.prototype)
+    </script>
+</body>
+</html>

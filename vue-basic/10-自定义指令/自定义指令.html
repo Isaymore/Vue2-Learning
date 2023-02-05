@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>当前n的值是：{{n}}</h1>
+        <h1>放大10倍后的n值是:<span v-big-number="n*10"></span></h1>
+        <button @click="n++">+1</button>
+        <hr>
+        <input type="text" v-fbind:value="n">
+        <br>
+
+        <input type="text" v-color-swatch="color">
+        <button @click="toggleBgc">改变背景色</button>
+
+        <div v-demo="{ color: 'white', text: 'hello!' }">指令的绑定值是一个对象，或者说指令绑定一个对象</div>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        Vue.directive('color-swatch', (el, binding) => {
+            el.style.backgroundColor = binding.value
+        })
+        Vue.directive('demo', function (el, binding) {
+            console.log(binding.value)
+            console.log(binding.value.color) // => "white"
+            console.log(binding.value.text)  // => "hello!"
+        })
+        new Vue({
+            el: '#app',
+            data: {
+                n: 1,
+                color: 'red',
+                flag: false
+            },
+            methods: {
+                toggleBgc() {
+                    this.flag = !this.flag
+                    this.flag ? this.color = 'blue' : this.color = "red"
+                }
+            },
+            directives: {
+                'big-number'(el, binding) {
+                    el.innerHTML = binding.value
+                    console.log(el, binding)
+                },
+                fbind: {
+                    bind(el, binding) {
+                        console.log('bind钩子函数', el, typeof el)
+                        el.value = binding.value
+                    },
+                    inserted(el, binding) {
+                        console.log('inserted钩子函数', el, typeof el)
+                        el.focus()
+                    },
+                    update(el, binding) {
+                        console.log('update钩子函数', el, typeof el)
+                        el.value = binding.value
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

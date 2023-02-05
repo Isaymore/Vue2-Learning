@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>创建一个输入框</button>
+    <script>
+        const btn = document.querySelector('button')
+        btn.addEventListener('click', () => {
+            const input = document.createElement('input')
+            console.log(111, input, typeof input)
+            console.dir(input)
+            input.value = 666
+            console.log('document.body添加子元素前', document.body, typeof document.body)
+            document.body.appendChild(input)
+            input.focus()
+            console.log('document.body添加子元素后', document.body, typeof document.body)
+            console.log(222, input.parentElement, typeof input.parentElement)
+            console.log(333, input, typeof input)
+            console.dir(input)
+        })
+    </script>
+</body>
+
+</html>

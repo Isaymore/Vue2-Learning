@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        姓： <input type="text" v-model:value="firstName"> <br>
+        名： <input type="text" v-model="lastName"> <br>
+        姓名：<span>{{fullName}}</span>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    firstName: '周',
+                    lastName: '星星',
+                    fullName: '周星星'
+                }
+            },
+            // computed: {
+            //     fullName() {
+            //             console.log('侦听访问---计算属性fullName')
+            //             return this.firstName + this.lastName
+            //         }
+            //     },
+            watch: {
+                firstName(val) {
+                    // 异步
+                    setTimeout(() => {
+                        console.log(this)
+                        this.fullName = val + this.lastName
+                    }, 2000)
+                },
+                lastName(val) {
+                    this.fullName = this.firstName + val
+                }
+            }
+        })
+        // console.log(vm._data === vm.$data)
+    </script>
+</body>
+
+</html>

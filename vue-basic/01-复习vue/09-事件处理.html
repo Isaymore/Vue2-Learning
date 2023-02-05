@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h1>{{name}}</h1>
+        <button @click="show">click me</button>
+        <button @click="transfer($event, 666)">传参</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data() {
+                return {
+                    name: 'xingye',
+                    age: 17
+                }
+            },
+            methods: {
+                // 如果vue模板没有写$event，会自动传 $event 给函数
+                show(e) {
+                    // alert('逃学威龙')
+                    console.log(e)
+                    console.log(e.target.innerHTML)
+                },
+                transfer(e,n) {
+                    // alert(n)
+                    console.log(e)
+                    console.log(n)
+                    console.log(e.target.innerHTML)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

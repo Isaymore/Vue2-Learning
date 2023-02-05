@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 不推荐用法：在模板中写太多逻辑，让模板过重且难以维护 -->
+        <div id="example">
+            {{ message.split('').reverse().join('') }}
+        </div>
+        <!-- 推荐用法：任何复杂逻辑，应当使用计算属性 -->
+        姓： <input type="text" v-model:value="firstName"> <br>
+        名： <input type="text" v-model="lastName"> <br>
+        姓名：<span>{{fullName}}</span> <br>
+        姓名：<span>{{fullName}}</span> <br>
+        姓名：<span>{{fullName}}</span> <br>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    firstName: '周',
+                    lastName: '星星',
+                    message:'hello'
+                }
+            },
+            computed: {
+                fullName() {
+                    console.log('this指向', this)
+                    console.log('读取计算属性---fullName，调用执行get函数')
+                    return this.firstName + '-' + this.lastName
+                }
+            }
+        })
+        console.log('比较_data和$data是否相等', vm._data === vm.$data)
+    </script>
+</body>
+
+</html>

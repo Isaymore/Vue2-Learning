@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="watch-example">
+        <p>
+            Ask a yes/no question:
+            <input v-model="question">
+        </p>
+        <p>{{ answer }}</p>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.1.2/axios.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script>
+        const watchExampleVM = new Vue({
+            el: '#watch-example',
+            data() {
+                return {
+                    question: '',
+                    answer: 'I cannot give you an answer until you ask a question!'
+                }
+            },
+            watch: {
+                question() {
+                    this.answer = 'Waiting for you to stop typing...'
+                    this.debouncedGetAnswer()
+                }
+            },
+            created() {
+                this.debouncedGetAnswer = _.debounce(this.getAnswer, 2000)
+            },
+            methods: {
+                async getAnswer() {
+                    if (this.question.indexOf('?') === -1) {
+                        this.answer = 'Questions usually contain a question mark.'
+                        return
+                    }
+                    this.answer = 'Thinking...'
+                    // const response = await axios.get('https://yesno.wtf/api')
+                    // console.log('response', response, typeof response)
+                    // 这里声明变量vm，是因为后面的then方法或catch方法如果传入的是普通函数，this指向Window对象
+                    // var vm = this
+                    // 方法一：使用then方法和catch方法
+                    // axios.get('https://yesno.wtf/api')
+                    //     .then((response) => {
+                    //         // 注意：
+                    //         // 1、如果是普通函数：then方法内部的this指向Window对象，所以要声明变量vm指向this，而this指向watchExampleVM
+                    //         // 2、如果是箭头函数，不用声明变量vm，因为箭头函数没有this，往外层作用域找到this，this指向watchExampleVM
+                    //         console.log('then方法中的this', this, typeof this)
+                    //         this.answer = _.capitalize(response.data.answer)
+                    //     })
+                    //     .catch((error) => {
+                    //         console.log('catch方法中的this', this, typeof this)
+                    //         this.answer = 'Error! Could not reach the API. ' + error
+                    //     })
+                    // 方法二：使用语法糖：async和await，结合try...catch捕获异常  -- 更推荐
+                    try {
+                        const response = await axios.get('https://yesno.wtf/api')
+                        console.log('response', response, typeof response)
+                        // if (response.status === 200) {
+                        this.answer = _.capitalize(response.data.answer)
+                        // }
+                    } catch (error) {
+                        console.error('error', error, typeof error)
+                        console.dir(error)
+                        this.answer = 'Error! Could not reach the API. ' + error
+                    }
+
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>{{n}}</h1>
+        <button @click="add">+1</button>
+        <button @click="destroy">销毁</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+            el:'#app',
+            data:{
+                n:1
+            },
+            methods: {
+                add(){
+                    this.n++
+                },
+                destroy(){
+                    this.$destroy()
+                }
+            },
+            beforeCreate() {
+                console.log('beforeCreate')
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate')
+                // console.log(this.n)
+                // debugger
+            },
+            updated() {
+                console.log('updated')
+                console.log(this.n)
+                // debugger
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy')
+                // debugger
+            },
+        })
+    </script>
+</body>
+</html>

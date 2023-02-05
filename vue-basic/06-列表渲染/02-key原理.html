@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>人员列表（遍历数组）</h1>
+        <button @click="add">添加人员</button>
+        <ul>
+            <li v-for="(person, index) in personList" :key="index">
+                {{person.name}}-{{person.age}}-{{index}}
+                <input type="text">
+            </li>
+        </ul>
+
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    personList: [
+                        { id: '001', name: '张三', age: 16 },
+                        { id: '002', name: '李四', age: 17 },
+                        { id: '003', name: '王五', age: 18 },
+                    ],
+                }
+            },
+            methods: {
+                add() {
+                    this.personList.unshift({ id: '004', name: '赵六', age: 19 })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

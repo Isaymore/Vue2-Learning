@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>人员列表</h1>
+        <input type="text" placeholder="请输入关键字" v-model="keyWord">
+        <ul>
+            <li v-for="(item, index) in filPerson" :key="item.id">{{item.name}}-{{item.age}}-{{item.sex}}</li>
+            <!-- <li v-for="(item, index) of personList" :key="item.id">{{item.name}}-{{item.age}}-{{index}}</li> -->
+        </ul>
+
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        // const vm = new Vue({
+        //     el: '#app',
+        //     data() {
+        //         return {
+        //             keyWord: '',
+        //             personList: [
+        //                 { id: '001', name: '马冬梅', age: 16, sex: 'female' },
+        //                 { id: '002', name: '周冬雨', age: 17, sex: 'female' },
+        //                 { id: '003', name: '周杰伦', age: 18, sex: 'male' },
+        //                 { id: '004', name: '温兆伦', age: 18, sex: 'male' },
+        //             ],
+        //             filPerson: []
+        //         }
+        //     },
+        //     // watch侦听实现
+        //     watch: {
+        //         // keyWord(val) {
+        //         //     // console.log('keyWord属性:', val)
+        //         //     this.filPerson = this.personList.filter(item => item.name.indexOf(val) !== -1)
+        //         //     // console.log(newArr)
+        //         // }
+        //         keyWord: {
+        //             immediate: true,
+        //             handler(val) {
+        //                 this.filPerson = this.personList.filter(item => item.name.indexOf(val) !== -1)
+        //             }
+        //         }
+        //     },
+            
+        // })
+        
+        // computed计算实现
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    keyWord: '',
+                    personList: [
+                        { id: '001', name: '马冬梅', age: 16, sex: 'female' },
+                        { id: '002', name: '周冬雨', age: 17, sex: 'female' },
+                        { id: '003', name: '周杰伦', age: 18, sex: 'male' },
+                        { id: '004', name: '温兆伦', age: 18, sex: 'male' },
+                    ]
+                }
+            }, 
+            computed: {
+                filPerson() {
+                    return this.personList.filter(item => item.name.indexOf(this.keyWord) !== -1)
+                }
+            }  
+        })
+    
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.11.3/dayjs.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>当前时间：{{fmtTime}}</h1>
+        <h1>当前时间：{{getFmtTime()}}</h1>
+        <h1>当前时间：{{time | timeformatter | filterB('YYYY')}}</h1>
+    </div>
+    <div id="app2">
+        <h1>当前时间：{{time | filterB}}</h1>
+    </div>
+    <script>
+        // console.log(dayjs, typeof dayjs)
+        Vue.filter('filterB', value => dayjs(value).format('YYYY-MM'))
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                time: Date.now()
+            },
+            computed: {
+                fmtTime() {
+                    return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+                }
+            },
+            methods: {
+                getFmtTime() {
+                    return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+                }
+            },
+            filters: {
+                timeformatter(value) {
+                    return dayjs(value).format('YYYY-MM-DD HH:mm:ss')
+                },
+                filterB(value, timeStr) {
+                    return dayjs(value).format(timeStr)
+                },
+
+            }
+        })
+        new Vue({
+            el: '#app2',
+            data: {
+                time: Date.now()
+            }
+        })
+    </script>
+</body>
+
+</html>

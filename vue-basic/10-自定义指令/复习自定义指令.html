@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="num++">+1</button>
+        <input type="text" v-focus:value="num">
+        <input type="text" v-big:value="num*10">
+    </div>
+    <script>
+        // 注册一个全局自定义指令 `v-focus`
+        const focus = {
+            name:'focus',
+            // 当指令第一次绑定到元素时，调用bind钩子函数
+            bind(el, binding) {
+                console.log('bind钩子函数', el, typeof el)
+                // el.value获取/修改原生input元素的表单值，bingding.value是指令的绑定值(指向num)
+                el.value = binding.value
+            },
+            // 当指令所绑定的元素插入到 DOM 中时……
+            // 可以写成箭头函数形式
+            inserted(el) {
+                console.log('inserted钩子函数', el, typeof el)
+                // 聚焦元素
+                el.focus()
+            },
+            // 指令所在的模板被重新解析时，调用update钩子函数
+            update(el, binding) {
+                console.log('update钩子函数', el, typeof el)
+                el.value = binding.value
+            },
+        }
+        const big = {
+            name:'big',
+            bind(el, binding) {
+                el.value = binding.value
+            },
+            inserted(el) {
+                el.focus()
+            },
+            update(el, binding) {
+                el.value = binding.value
+            }
+        }
+        // 遍历数组，遍历注册全局自定义指令
+        // const arr = [focus,big]
+        // arr.forEach(item=>{
+        //     console.log(item.name)
+        //     Vue.directive(item.name, item)
+        // })
+        Vue.directive('focus', focus)
+        Vue.directive('big', big)
+
+        new Vue({
+            // el所绑定的容器
+            el: '#app',
+            data() {
+                return {
+                    num: 666
+                }
+            }
+            // 注册局部自定义指令
+            // directives: {
+            //     focus: {
+            //         bind(el, binding) {
+            //             el.value = binding.value
+            //         },
+            //         inserted(el, binding) {
+            //             el.focus()
+            //         },
+            //         update(el, binding) {
+            //             el.value = binding.value
+            //         }
+            //     }
+            // }
+        })
+        // console.log(666)
+        // console.log('同步代码', Vue)
+        // console.dir(Vue)
+        // console.log(888)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>学校名称:{{name}}</h2>
+        <h2>学校地址:{{address}}</h2>
+        <!-- <h2>校长是:{{leader}}</h2> -->
+        <hr>
+        <h2>学生姓名:{{student.name}}</h2>
+        <button @click="addSex">添加性别，默认值是男</button>
+        <h2 v-if="student.sex">性别:{{student.sex}}</h2>
+        <h2>学生年龄:真实{{student.age.rAge}}, 对外{{student.age.sAge}}</h2>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                name: '广州大学',
+                address: '广州',
+                student: {
+                    name: 'xiaobin',
+                    // sex: '男',
+                    age: {
+                        rAge: 40,
+                        sAge: 18
+                    }
+                }
+            },
+            methods: {
+                addSex() {
+                    this.$set(this.student, 'sex', '男')
+                }
+            },
+
+        })
+        // console.log(vm._data.student.sex)
+    </script>
+</body>
+
+</html>

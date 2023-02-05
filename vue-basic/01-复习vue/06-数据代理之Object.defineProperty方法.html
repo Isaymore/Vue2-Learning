@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <script>
+        let number = 17
+        let idol = {
+            name: 'xingye',
+            gender: 'male',
+            age: number
+        }
+        Object.defineProperty(idol, 'age', {
+            //     value: 'male',
+            // enumerable: true, // 枚举属性
+            //     writable: true,
+            //     configurable: true
+            get() {
+                console.log('监听访问age属性')
+                return number
+            },
+            set(newVal) {
+                console.log('监听修改age属性，值是', newVal)
+                number = newVal
+            }
+        })
+        console.log(Object.keys(idol))
+        for (let key in idol) {
+            console.log(idol[key])
+        }
+        idol.age = 18
+        // delete idol.age
+        console.log(idol)
+    </script>
+</body>
+
+</html>

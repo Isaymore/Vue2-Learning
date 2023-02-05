@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1 v-show="flag">v-show:{{name}}</h1>
+        <h1 v-if="flag">v-if:{{name}}</h1>
+        <h1>当前n值为: {{n}}</h1>
+        <button @click="n++">+1</button>
+        <!-- <div v-show="n === 1">V</div>
+        <div v-show="n === 2">u</div>
+        <div v-show="n === 3">e</div> -->
+        <!-- <div v-if="n === 1">V</div>
+        <div v-if="n === 2">u</div>
+        <div v-if="n === 3">e</div> -->
+        <!-- <div v-if="n === 1">V</div>
+        <div v-else-if="n === 2">u</div> -->
+        <!-- <div>不能打断</div> -->
+        <!-- <div v-else-if="n === 3">e</div>
+        <div v-else>study</div> -->
+        <!-- <div v-show="n === 1">
+            <h1>V</h1>
+            <h1>u</h1>
+            <h1>e</h1>
+        </div> -->
+        <template v-if="n === 1">
+            <h1>V</h1>
+            <h1>u</h1>
+            <h1>e</h1>
+        </template>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    name: 'xingye',
+                    age: 17,
+                    flag: true,
+                    n: 0
+                }
+            }
+        })
+    </script>
+</body>
+</html>

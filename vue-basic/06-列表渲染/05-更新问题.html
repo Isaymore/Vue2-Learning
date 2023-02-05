@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>人员列表</h1>
+       <button @click="update">更新</button>
+        <ul>
+            <li v-for="(item, index) in personList" :key="item.id">{{item.name}}-{{item.age}}-{{item.sex}}</li>
+            <!-- <li v-for="(item, index) of personList" :key="item.id">{{item.name}}-{{item.age}}-{{index}}</li> -->
+        </ul>
+
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        // computed计算实现
+        const vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+ 
+                    personList: [
+                        { id: '001', name: '马冬梅', age: 16, sex: 'female' },
+                        { id: '002', name: '周冬雨', age: 17, sex: 'female' },
+                        { id: '003', name: '周杰伦', age: 28, sex: 'male' },
+                        { id: '004', name: '温兆伦', age: 18, sex: 'male' },
+                    ]
+                }
+            },
+            methods: {
+                update() {
+                    // this.personList[0].name = 'test'
+                    this.personList[0]={ id: '001', name: '马冬梅test', age: 16, sex: 'female' }
+                }
+            },
+        })
+        // let arr = [1, 3, 5, 2]
+        // arr.sort((a, b) => a - b)
+        // console.log(arr)
+    </script>
+</body>
+
+</html>

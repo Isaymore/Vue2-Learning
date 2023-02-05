@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.0-beta1/css/bootstrap.rtl.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>*</td>
+                    <td><input type="text" v-model.trim="addName" ></td>
+                    <td><input type="number" name="" id="" v-model.number="addAge"></td>
+                    <td><button @click="addUser">添加</button></td>
+                </tr>
+                <tr v-for="(item,index) in userInfo" :key="item.id">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.age}}</td>
+                    <td>
+                      <button @click="delUser(index)">删除</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                addName:'',
+                addAge:'',
+                userInfo: [
+                    { id: 1, 'name': '张三', age: 16 },
+                    { id: 2, 'name': '李四', age: 16 },
+                    { id: 3, 'name': '王五', age: 16 },
+                ]
+            },
+            methods: {
+                addUser(){
+                    this.userInfo.push( { id: Date.now(), 'name': this.addName, age: this.addAge })
+                },
+                delUser(index){
+                    this.userInfo.splice(index,1)
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

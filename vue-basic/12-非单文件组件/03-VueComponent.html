@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <hello></hello>
+        <school></school>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const school = Vue.extend({
+            template: `
+                <div>
+                    <h1>学校名称：{{schoolName}}</h1>
+                    <h1>学校地址：{{address}}</h1>
+                    <button @click="showName">点击显示学校名</button>
+                </div>
+            `,
+            data() {
+                return {
+                    schoolName: '广州大学',
+                    address: '广州'
+                }
+            },
+            methods:{
+                showName(){
+                    // alert(this.schoolName)
+                    console.log(this)
+                }
+            }
+        })
+        
+        const test = Vue.extend({
+            template:`
+                <div>
+                    <h1>{{idol}}</h1>
+                </div>
+            `,
+            data(){
+                return {
+                    idol: '周星星同学'
+                }
+            }
+        })
+        const hello = Vue.extend({
+            name: 'hi',
+            template: `
+                <div>
+                    <h1>{{msg}}</h1>
+                    <test></test>
+                </div>
+            `,
+            data() {
+                return {
+                    msg:'hello'
+                    
+                }
+            },
+            components:{
+                test
+            }
+        })
+
+        // console.log('@',school,typeof school)
+        // console.log('#',hello)
+        // console.log(school === hello)
+        // school.a = 99
+        // console.log('@',school.a)
+        // console.log('#',hello.a)
+        
+        
+
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello'
+            },
+            components: {
+                school,
+                hello
+            },
+            methods: {
+                vmThis() {
+                    console.log('vmThis', this)
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

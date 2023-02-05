@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1 :style="{opacity}">学习Vue</h1>
+        <button @click="stop">停止变色</button>
+        <button @click="opacity = 1">透明度设置为1</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        new Vue({
+            el: '#app',
+            data: {
+                opacity: 0.5,
+                flag: false
+            },
+            methods: {
+                change() {
+                    console.log('开启定时器')
+                    // setInterval(() => {
+                    //     this.opacity -= 0.01
+                    //     if(this.opacity <= 0) this.opacity = 1
+                    // },16)
+                },
+                stop() {
+                    // clearInterval(this.timer)
+                    this.$destroy()
+                }
+            },
+            mounted() {
+                console.log('mounted')
+                this.timer = setInterval(() => {
+                    // console.log('timer')
+                    this.opacity -= 0.01
+                    if (this.opacity <= 0) this.opacity = 1
+                }, 16)
+            },
+            beforeDestroy() {
+                clearInterval(this.timer)
+            },
+        })
+    </script>
+</body>
+
+</html>

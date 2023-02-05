@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        .warning {
+            color: yellow;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .blue {
+            color: blue;
+        }
+
+        .font {
+            font-size: 30px;
+        }
+
+        .border {
+            border: 5px solid yellow;
+        }
+
+        .bgc {
+            background-color: blueviolet;
+        }
+
+        .active {
+            background-color: blue;
+        }
+
+        .text-danger {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div :class="activeClass" @click="changeMood">{{name}}</div>
+        <div :class="classObj" @click="changeMood">{{name}}</div>
+        <div :class="classArr" @click="changeMood">{{name}}</div>
+
+        <div class="active">静态class attribute</div>
+        <br>
+        <div :class="activeClass">动态绑定类，字符串写法</div>
+        <br>
+        <div :class="{ active: isActive, 'text-danger': hasError}">动态绑定类，对象写法，内联字面量
+        </div>
+        <br>
+        <div :class="classObj">动态绑定类，对象写法，直接绑定一个对象</div>
+        <br>
+        <div :class="classObject">动态绑定类，计算属性，高级玩法</div>
+        <br>
+        <div :class="[isActive ? activeClass : '', errorClass]">动态绑定类，数组写法，内联字面量</div>
+        <br>
+        <div :class="[{active:isActive}, errorClass]">动态绑定类，数组写法，数组内嵌套对象</div>
+        <br>
+        <div :class="classArr">动态绑定类，数组写法，直接绑定一个数组</div>
+        <br>
+        <div class="">注意：类名为空，说明没有添加类</div>
+    </div>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                name: 'test',
+                isActive: true,
+                hasError: true,
+                activeClass: 'active',
+                errorClass: 'text-danger',
+                classObj: {
+                    font: false,
+                    border: true
+                },
+                classArr: ['font', 'border', 'bgc'],
+            },
+            computed: {
+                classObject() {
+                    return {
+                        active: this.isActive,
+                        'text-danger': this.hasError
+                    }
+                }
+            },
+            methods: {
+                changeMood() {
+                    this.mood = 'green'
+                    // const arr = ['green', 'red', 'blue']
+                    // const index = Math.floor(Math.random() * 3)
+                    // this.mood = arr[index]
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

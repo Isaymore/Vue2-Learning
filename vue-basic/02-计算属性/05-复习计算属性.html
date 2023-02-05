@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="example">
+        <p>Original message: "{{ message }}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+        <p>调用方法: "{{ getReversedMessage() }}"</p>
+        <p>调用方法: "{{ getReversedMessage() }}"</p>
+        <p>调用方法: "{{ getReversedMessage() }}"</p>
+        <p>计算属性所依赖的不是响应式数据: "{{ now }}"</p>
+        <p>测试：触发重新渲染时，页面会再次自动调用执行方法：{{ idol }}</p>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        Vue.config.productionTip = false
+
+        let self = null
+        const vm = new Vue({
+            el: '#example',
+            data: {
+                message: 'Hello',
+                idol: '星爷'
+            },
+            computed: {
+                // 计算属性的 getter
+                reversedMessage: function () {
+                    // `this` 指向 vm 实例
+                    console.log('this', this, typeof this)
+                    console.log('我是老self', self)
+                    // this是实例对象，属于引用数据类型，给self赋值是复制传递数据地址，属于引用传递
+                    self = this
+                    console.log('我是新self', self)
+                    return this.message.split('').reverse().join('')
+                },
+                // 计算属性now将不再更新，因为 Date.now() 不是响应式依赖
+                now() {
+                    console.log(Date.now())
+                    return Date.now()
+                }
+            },
+            // 在组件中
+            methods: {
+                // 每当触发重新渲染时（比如响应式数据发生改变会触发重新渲染），调用方法将总会再次执行函数
+                getReversedMessage() {
+                    console.log('methods没有缓存机制')
+                    return this.message.split('').reverse().join('')
+                }
+            },
+        })
+        console.log(self === vm)
+        // console.log(vm.reversedMessage)
+        // vm.message = 'Goodbye'
+        // console.log(vm.reversedMessage)
+    </script>
+</body>
+
+</html>

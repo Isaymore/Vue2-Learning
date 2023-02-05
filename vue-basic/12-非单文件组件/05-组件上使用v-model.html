@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>组件上使用v-model</h1>
+        原生单选框：<input type="radio" name="" id="" onchange="alert(666)"> <br>
+        原生复选框：<input type="checkbox" name="" id="" onchange="alert(888)"> <br>
+        自定义表单组件的复选框：<base-checkbox v-model="lovingVue"></base-checkbox> <br>
+        自定义表单组件的输入框：<custom-input v-model="searchText"></custom-input> <br>
+        <!-- 编译器会对 v-model 进行展开：<custom-input :value="searchText" @input="newValue => searchText = newValue" /> -->
+        <!-- 编译器会对 v-model 进行展开：<custom-input :value="searchText" @update:value="newValue => searchText = newValue" /> -->
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        Vue.component('base-checkbox', {
+            model: {
+                prop: 'checked',
+                event: 'change'
+            },
+            props: {
+                checked: Boolean
+            },
+            template: `
+              <input
+                type="checkbox"
+                v-bind:checked="checked"
+                v-on:change="$emit('change', $event.target.checked)"
+              >
+            `
+        })
+
+        Vue.component('custom-input', {
+            props: {
+                value: String
+            },
+            template: `
+                    <input 
+                        type="text" 
+                        :value="value" 
+                        @input="$emit('input', $event.target.value)" 
+                    />
+            `,
+            methods: {
+                inputHandle(e) {
+                    this.$emit('input', e.target.value)
+                    // this.$emit('update:value', e.target.value)
+                }
+            },
+        })
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    lovingVue: true,
+                    searchText: '',
+                }
+            },
+            methods: {
+                inputHandle(value) {
+                    console.log(value)
+                    this.searchText = value
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

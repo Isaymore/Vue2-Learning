@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div style="color:blue;font-size: 16px;">静态style样式</div>
+        <div :style="`color:${colorStyle};font-size:${fontSize}`">动态style样式，字符串写法，模板字符串</div>
+        <br>
+        <div :style="'color:' + colorStyle + ';font-size:' + fontSize">动态style样式，字符串写法，+拼接</div>
+        <div :style="{color: colorStyle, 'font-size': fontSize}">动态绑定style样式，对象写法，内联字面量</div>
+        <br>
+        <div :style="styleObj">动态绑定style样式，对象写法，直接绑定一个对象，更加推荐</div>
+        <br>
+        <div :style="[{'font-size': '20px',color: 'green'},{border:' 5px solid red'}]">动态绑定style样式，数组写法，内联字面量</div>
+        <br>
+        <div :style="[styleObj, styleObj2]">动态绑定style，数组写法，直接绑定一个数组</div>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                colorStyle: 'red',
+                fontSize: '24px',
+                styleObj: {
+                    fontSize: '40px',
+                    color: 'purple',
+                },
+                styleObj2: {
+                    backgroundColor: 'skyblue'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

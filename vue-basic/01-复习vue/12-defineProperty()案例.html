@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    单价：<input type="number" name="price" id="price"> <br>
+    数量：<input type="number" name="count" id="count"> <br>
+    总价：<span id="total"></span>
+    <script>
+        const good = {
+            price: 0,
+            count: 0
+        }
+        // console.log(good.price)
+        // const total = document.querySelector('#total')
+        // const price = document.querySelector('#price')
+        // const count = document.querySelector('#count')
+
+        Object.defineProperty(good, 'price', {
+
+            get() {
+                console.log('监听访问price属性')
+                return price.value
+
+            },
+            set(num) {
+                console.log(num)
+                console.log('监听修改price属性。。。')
+                total.innerHTML = num * good.count
+            }
+        })
+        Object.defineProperty(good, 'count', {
+            get() {
+                console.log('监听访问count属性')
+                return count.value
+            },
+            set(num) {
+                console.log(num)
+                console.log('监听修改count属性。。。')
+                total.innerHTML = num * good.price
+            }
+        })
+        price.addEventListener('input', e => {
+            good.price = e.target.value
+        })
+        // 对象解构
+        count.addEventListener('input', ({target}) => {
+            good.count = target.value
+        })
+        console.log(window)
+    </script>
+</body>
+
+</html>
